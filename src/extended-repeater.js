@@ -15,7 +15,20 @@ import { NotImplementedError } from '../extensions/index.js';
  * => 'STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS'
  *
  */
-export default function repeater(/* str, options */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+export default function repeater(str, options) {
+	let optionsSeparator = options.separator ? options.separator : '+';
+	let additionSeparator = options.additionSeparator ? options.additionSeparator : '|';
+	let addRepTimes = Number.isInteger(options.additionRepeatTimes) ? options.additionRepeatTimes : 1;
+	let repTimes = Number.isInteger(options.repeatTimes) ? options.repeatTimes : 1;
+	let addition = options.addition === null ? 'null' : options.addition;
+
+	let separator = [];
+	let res = [];
+
+	for (let i = 0; i < addRepTimes; i++) separator.push(addition)
+	str += separator.join(additionSeparator);
+
+	for (let i = 0; i < repTimes; i++) res.push(str);
+
+	return res.join(optionsSeparator);
 }
