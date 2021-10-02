@@ -5,24 +5,33 @@ import { NotImplementedError } from '../extensions/index.js';
  * 
  */
 export default {
-  getLength() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  },
-  addLink(/* value */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  },
-  removeLink(/* position */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  },
-  reverseChain() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  },
-  finishChain() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
+	chain: [],
+	getLength() {
+		return this.chain.length;
+	},
+	addLink(value) {
+		value !== undefined
+			? value === null
+				? this.chain.push('null')
+				: this.chain.push(value)
+			: this.chain.push('');
+		return this;
+	},
+	removeLink(pos) {
+		if (!Number.isInteger(pos) || pos < 1 || pos > this.chain.length) {
+			this.chain = [];
+			throw Error("You can't remove incorrect link!");
+		}
+		this.chain.splice(pos - 1, 1);
+		return this;
+	},
+	reverseChain() {
+		this.chain.reverse();
+		return this;
+	},
+	finishChain() {
+		let finish = this.chain;
+		this.chain = [];
+		return `( ${finish.join(' )~~( ')} )`
+	}
 };
